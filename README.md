@@ -1,1 +1,1 @@
-# LinkedList-in-Delphi
+These are the Simple programs in Delphi 
