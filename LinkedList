@@ -1,0 +1,249 @@
+unit LinkedList;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    InsertBegin: TButton;
+    InsertMiddle: TButton;
+    DeleteEnd: TButton;
+    DeleteBegin: TButton;
+    DeleteMiddle: TButton;
+    InsertEnd: TButton;
+    procedure InsertBeginClick(Sender: TObject);
+    procedure InsertMiddleClick(Sender: TObject);
+    procedure DeleteEndClick(Sender: TObject);
+    procedure DeleteBeginClick(Sender: TObject);
+    procedure DeleteMiddleClick(Sender: TObject);
+    procedure InsertEndClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+  PListRec = ^linklist;
+
+  linklist = RECORD
+    DataFields: integer;
+    Next: PListRec;
+  END;
+
+var
+  Form1: TForm1;
+  AList: TList;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.InsertBeginClick(Sender: TObject);
+var
+  PRoot: PListRec;
+  PRec: PListRec;
+  WRec: PListRec;
+  temp: PListRec;
+  i: integer;
+begin
+  WRec := NIL;
+  for i := 0 to 4 do
+  begin
+    New(PRec);
+    PRec^.Next := Nil;
+    PRec^.DataFields := i;
+    if i = 0 then
+      PRoot := PRec;
+    if assigned(WRec) then
+      PRec^.Next := WRec;
+    WRec := PRec;
+    PRoot := PRec;
+  end;
+  temp := PRoot;
+  for i := 0 to 4 do
+  begin
+    ShowMessage(inttostr(temp.DataFields));
+    temp := temp^.Next;
+  end;
+end;
+
+procedure TForm1.InsertMiddleClick(Sender: TObject);
+var
+  PRoot, root1: PListRec;
+  PRec: PListRec;
+  WRec: PListRec;
+  temp, temp1: PListRec;
+  i: integer;
+begin
+  WRec := NIL;
+  for i := 0 to 4 do
+  begin
+    New(PRec);
+    PRec^.Next := Nil;
+    PRec^.DataFields := i;
+    if i = 0 then
+      PRoot := PRec;
+    if assigned(WRec) then
+      WRec^.Next := PRec;
+    WRec := PRec;
+  end;
+
+  New(temp1);
+  New(root1);
+  temp1^.Next := Nil;
+  temp1^.DataFields := 5555;
+  for i := 0 to 1 do
+  begin
+    root1 := PRoot^.Next;
+  end;
+
+  temp1.Next := root1^.Next;
+  root1^.Next := temp1;
+
+  temp := PRoot;
+  for i := 0 to 5 do
+  begin
+    ShowMessage(inttostr(temp.DataFields));
+    temp := temp^.Next;
+  end;
+end;
+
+procedure TForm1.DeleteEndClick(Sender: TObject);
+var
+  PRoot: PListRec;
+  PRec: PListRec;
+  WRec: PListRec;
+  temp: PListRec;
+  i: integer;
+begin
+  WRec := NIL;
+  for i := 0 to 4 do
+  begin
+    New(PRec);
+    PRec^.Next := Nil;
+    PRec^.DataFields := i;
+    if i = 0 then
+      PRoot := PRec;
+    if assigned(WRec) then
+      WRec^.Next := PRec;
+    WRec := PRec;
+  end;
+  PRec := PRoot;
+  while not(PRec.Next.Next = nil) do
+  BEGIN
+    PRec := PRec.Next;
+  END;
+  PRec.Next := nil;
+
+  temp := PRoot;
+  for i := 0 to 3 do
+  begin
+    ShowMessage(inttostr(temp.DataFields));
+    temp := temp^.Next;
+  end;
+
+end;
+
+procedure TForm1.DeleteBeginClick(Sender: TObject);
+var
+  PRoot: PListRec;
+  PRec: PListRec;
+  WRec: PListRec;
+  temp: PListRec;
+  i: integer;
+begin
+  WRec := NIL;
+  for i := 0 to 4 do
+  begin
+    New(PRec);
+    PRec^.Next := Nil;
+    PRec^.DataFields := i;
+    if i = 0 then
+      PRoot := PRec;
+    if assigned(WRec) then
+      WRec^.Next := PRec;
+    WRec := PRec;
+  end;
+  PRoot := PRoot.Next;
+  PRec.Next := nil;
+
+  temp := PRoot;
+  for i := 0 to 3 do
+  begin
+    ShowMessage(inttostr(temp.DataFields));
+    temp := temp^.Next;
+  end;
+
+end;
+
+procedure TForm1.DeleteMiddleClick(Sender: TObject);
+var
+  PRoot: PListRec;
+  PRec: PListRec;
+  WRec: PListRec;
+  temp, temp1: PListRec;
+  i: integer;
+begin
+  WRec := NIL;
+  for i := 0 to 4 do
+  begin
+    New(PRec);
+    PRec^.Next := Nil;
+    PRec^.DataFields := i;
+    if i = 0 then
+      PRoot := PRec;
+    if assigned(WRec) then
+      WRec^.Next := PRec;
+    WRec := PRec;
+  end;
+  PRec := PRoot;
+  for i := 0 to 1 do
+  begin
+    PRec := PRec^.Next;
+    temp1 := PRec;
+  end;
+  PRec := PRec^.Next;
+  temp1^.Next := PRec^.Next;
+
+  temp := PRoot;
+  for i := 0 to 3 do
+  begin
+    ShowMessage(inttostr(temp.DataFields));
+    temp := temp^.Next;
+  end;
+
+end;
+
+procedure TForm1.InsertEndClick(Sender: TObject);
+var
+  PRoot: PListRec;
+  PRec: PListRec;
+  WRec: PListRec;
+  temp: PListRec;
+  i: integer;
+begin
+  WRec := NIL;
+  for i := 0 to 4 do
+  begin
+    New(PRec);
+    PRec^.Next := Nil;
+    PRec^.DataFields := i;
+    if i = 0 then
+      PRoot := PRec;
+    if assigned(WRec) then
+      WRec^.Next := PRec;
+    WRec := PRec;
+  end;
+  temp := PRoot;
+  for i := 0 to 4 do
+  begin
+    ShowMessage(inttostr(temp.DataFields));
+    temp := temp^.Next;
+  end;
+
+end;
+
+end.
